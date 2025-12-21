@@ -11,7 +11,7 @@ export default function Home() {
           時よし、<br />
           人よし。<br />
           そして、値よし。<br />
-          <span className="small-text">成田屋の心尽くし</span>
+          <span className="small-text">高屋店の心尽くし</span>
         </h1>
       </div>
 

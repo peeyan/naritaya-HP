@@ -1,79 +1,191 @@
-/* Cuisine.css */
+/* src/pages/Cuisine/Cuisine.css */
+
 .cuisine-page {
-  padding-bottom: 4rem;
+  padding-bottom: 6rem;
+}
+
+.cuisine-header {
+  margin-bottom: 3rem;
+  text-align: center;
 }
 
 .intro-text {
-  text-align: center;
   font-family: "Shippori Mincho", serif;
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
   color: #555;
   line-height: 2;
 }
 
-.menu-category-section {
-  margin-bottom: 5rem;
+/* 検索ボックス */
+.search-container {
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: center;
 }
 
-.category-title {
+.search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  background-color: transparent;
+  font-family: "Shippori Mincho", serif;
+  outline: none;
+  transition: border-color 0.3s;
   text-align: center;
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
-  color: var(--accent-color);
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 0.5rem;
-  display: inline-block;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
+.search-input:focus {
+  border-bottom-color: var(--accent-color);
+}
+
+.search-input::placeholder {
+  color: #aaa;
+}
+
+/* タブナビゲーション */
+.category-tabs ul {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1rem;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  font-family: "Shippori Mincho", serif;
+  font-size: 1rem;
+  color: #888;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.tab-button:hover {
+  color: var(--accent-color);
+}
+
+.tab-button.active {
+  color: #222;
+  font-weight: bold;
+}
+
+.tab-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1rem; /* border-bottomの位置に合わせる */
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--accent-color);
+}
+
+/* メニューリスト */
 .menu-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
-  max-width: 800px;
+  gap: 2.5rem;
+  max-width: 900px;
   margin: 0 auto;
 }
 
 @media (min-width: 768px) {
   .menu-grid {
     grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    gap: 4rem 3rem;
   }
 }
 
 .menu-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding-bottom: 1rem;
   border-bottom: 1px dotted #ccc;
+  padding-bottom: 1rem;
+  transition: background-color 0.3s;
+}
+
+/* おすすめアイテムの強調 */
+.menu-card.recommended {
+  position: relative;
+}
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.8rem;
 }
 
 .menu-name {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-family: "Shippori Mincho", serif;
-  margin: 0 0 0.5rem 0;
+  margin: 0;
   color: #222;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.menu-desc {
-  font-size: 0.9rem;
-  color: #666;
-  margin: 0 0 1rem 0;
-  line-height: 1.6;
+.badge {
+  font-size: 0.7rem;
+  background-color: var(--accent-color);
+  color: white;
+  padding: 0.1rem 0.4rem;
+  border-radius: 2px;
+  font-weight: normal;
 }
 
 .menu-price {
-  text-align: right;
   font-size: 1.1rem;
   font-family: "Shippori Mincho", serif;
   color: #222;
+  white-space: nowrap;
+  margin-left: 1rem;
 }
 
 .tax-label {
   font-size: 0.7rem;
   color: #999;
-  margin-left: 0.3rem;
+}
+
+.menu-desc {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.no-results {
+  text-align: center;
+  padding: 4rem;
+  color: #888;
+}
+
+/* スマホ対応：タブを横スクロールに */
+@media (max-width: 600px) {
+  .category-tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -2rem; /* 親のpaddingを打ち消す */
+    padding: 0 2rem;
+  }
+
+  .category-tabs ul {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding-bottom: 0.5rem;
+    border-bottom: none;
+  }
+  
+  .tab-button.active::after {
+    bottom: -0.5rem;
+  }
 }

@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
-import Home from './pages/Home/Home';
-import Cuisine from './pages/Cuisine/Cuisine';
+import Home from './pages/Home';
+import Cuisine from './pages/Cuisine';
 // import Rooms from './pages/Rooms'; // 作成したらコメントアウトを外す
-import Info from './pages/Info/Info';
+import Info from './pages/Info';
 
 function App() {
   return (

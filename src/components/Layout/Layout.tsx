@@ -7,7 +7,7 @@ export default function Layout() {
     <div className="app-container">
       <header className="header">
         <div className="logo">
-          <Link to="/">成田屋</Link>
+          <Link to="/">成田屋 高屋店</Link>
         </div>
         <nav className="nav">
           <ul>
