@@ -1,0 +1,71 @@
+/* src/pages/Rooms/Rooms.css */
+.rooms-page {
+  padding-bottom: 6rem;
+}
+
+.room-section {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.room-card {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  margin-bottom: 6rem;
+}
+
+/* 偶数番目の要素を逆配置にする（画像・テキストの順序入れ替え） */
+.room-card.reverse {
+  flex-direction: row-reverse;
+}
+
+.room-image-placeholder {
+  flex: 1;
+  height: 300px;
+  background-color: #eee; /* 写真が入るまではグレー */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #aaa;
+  border-radius: 4px;
+}
+
+.room-text {
+  flex: 1;
+}
+
+.room-text h3 {
+  font-family: "Shippori Mincho", serif;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #222;
+  border-bottom: 1px solid var(--accent-color);
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+.room-text p {
+  line-height: 2;
+  color: #555;
+  font-size: 1rem;
+}
+
+/* スマホ対応 */
+@media (max-width: 768px) {
+  .room-card, .room-card.reverse {
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .room-image-placeholder {
+    width: 100%;
+    height: 200px;
+  }
+  
+  .room-text {
+    width: 100%;
+  }
+}
