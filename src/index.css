@@ -1,11 +1,17 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  /* 銭屋様のような落ち着いたトーン */
+  --bg-color: #fcfcfc; /* 真っ白すぎない和紙のような白 */
+  --text-color: #333333; /* 墨色 */
+  --accent-color: #8c7b75; /* 落ち着いた茶/グレー系 */
+
+  /* 明朝体を優先 */
+  font-family: "Shippori Mincho", "Yu Mincho", "YuMincho", serif;
+  line-height: 1.8; /* 行間を広めに取ってゆったりと */
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: light;
+  color: var(--text-color);
+  background-color: var(--bg-color);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,56 +19,214 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  flex-direction: column;
+  min-height: 100vh;
   min-width: 320px;
+}
+
+a {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+/* レイアウト用 */
+.app-container {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 4rem; /* 余白を多めに */
+  background-color: transparent;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}
+
+.nav ul {
+  display: flex;
+  gap: 3rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+}
+
+.main-content {
+  flex: 1;
+  padding: 4rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.footer {
+  text-align: center;
+  padding: 3rem;
+  background-color: #f5f5f5;
+  font-size: 0.8rem;
+  margin-top: auto;
+}
+
+/* ホーム画面：縦書きヒーローセクション */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 4rem;
+}
+
+.hero-section {
+  height: 70vh; /* 画面の7割を使う */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fcfcfc; /* 背景色 */
+  /* ここに背景画像を指定するとさらに良くなります */
+  /* background-image: url('/path/to/image.jpg'); */
+  /* background-size: cover; */
+  margin-bottom: 4rem;
+}
+
+.vertical-title {
+  writing-mode: vertical-rl; /* 縦書き指定 */
+  font-family: "Shippori Mincho", serif;
+  font-size: 2.5rem;
+  letter-spacing: 0.2em;
+  line-height: 2.5;
+  color: #2c2c2c;
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  /* 文字をふわっと表示させるアニメーション */
+  animation: fadeIn 2s ease-out;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.small-text {
+  font-size: 1rem;
+  margin-top: 1rem;
+  color: #666;
+}
+
+.greeting-section {
+  max-width: 600px;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.greeting-text {
+  font-family: "Shippori Mincho", serif;
+  font-size: 1.1rem;
+  line-height: 2.2;
+  margin-bottom: 3rem;
+  color: #444;
+}
+
+.button-link {
+  display: inline-block;
+  padding: 0.8rem 3rem;
+  border: 1px solid #8c7b75;
+  color: #8c7b75;
+  text-decoration: none;
+  font-family: "Shippori Mincho", serif;
+  transition: all 0.3s ease;
+}
+
+.button-link:hover {
+  background-color: #8c7b75;
+  color: #fff;
+}
+
+/* ご案内画面：洗練された定義リスト */
+.section-title {
+  text-align: center;
+  font-family: "Shippori Mincho", serif;
+  font-size: 2rem;
+  margin-bottom: 4rem;
+  font-weight: normal;
+  letter-spacing: 0.2em;
+}
+
+.info-content {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4rem;
+}
+
+.info-list {
+  width: 100%;
+  max-width: 700px;
+}
+
+.info-item {
+  display: flex;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 1.5rem 0;
+}
+
+.info-item dt {
+  width: 30%;
+  font-weight: bold;
+  color: #8c7b75; /* アクセントカラー */
+  padding-left: 1rem;
+}
+
+.info-item dd {
+  width: 70%;
+  margin: 0;
+  color: #333;
+}
+
+.map-placeholder {
+  width: 100%;
+  height: 300px;
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #aaa;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* スマホ対応（縦書きが崩れないように調整） */
+@media (max-width: 768px) {
+  .vertical-title {
+    font-size: 1.8rem;
+    line-height: 2;
+    height: 80%; /* 高さを確保 */
   }
-  a:hover {
-    color: #747bff;
+  
+  .info-item {
+    flex-direction: column;
   }
-  button {
-    background-color: #f9f9f9;
+  
+  .info-item dt {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
+  .info-item dd {
+    width: 100%;
+    padding-left: 1rem;
   }
 }
