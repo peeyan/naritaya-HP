@@ -1,0 +1,80 @@
+/* Home.css */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 4rem;
+}
+
+.hero-section {
+  height: 70vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-color);
+  margin-bottom: 4rem;
+}
+
+.vertical-title {
+  writing-mode: vertical-rl;
+  font-family: "Shippori Mincho", serif;
+  font-size: 2.5rem;
+  letter-spacing: 0.2em;
+  line-height: 2.5;
+  color: #2c2c2c;
+  font-weight: 500;
+  animation: fadeIn 2s ease-out;
+}
+
+.small-text {
+  font-size: 1rem;
+  margin-top: 1rem;
+  color: #666;
+}
+
+.greeting-section {
+  max-width: 600px;
+  text-align: center;
+  padding: 0 2rem;
+}
+
+.greeting-text {
+  font-family: "Shippori Mincho", serif;
+  font-size: 1.1rem;
+  line-height: 2.2;
+  margin-bottom: 3rem;
+  color: #444;
+}
+
+.action-area {
+  margin-top: 2rem;
+}
+
+.button-link {
+  display: inline-block;
+  padding: 0.8rem 3rem;
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
+  text-decoration: none;
+  font-family: "Shippori Mincho", serif;
+  transition: all 0.3s ease;
+}
+
+.button-link:hover {
+  background-color: var(--accent-color);
+  color: #fff;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .vertical-title {
+    font-size: 1.8rem;
+    line-height: 2;
+    height: 80%;
+  }
+}

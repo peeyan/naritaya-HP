@@ -1,16 +1,18 @@
 // src/pages/Info.tsx
+import './Info.css';
+
 export default function Info() {
   return (
     <div className="info-page">
       <h2 className="section-title">ご案内</h2>
-      
+
       <div className="info-content">
         <dl className="info-list">
           <div className="info-item">
             <dt>店名</dt>
             <dd>成田屋 (Naritaya)</dd>
           </div>
-          
+
           <div className="info-item">
             <dt>住所</dt>
             {/* 【ここを編集】既存サイトの住所を記入 */}

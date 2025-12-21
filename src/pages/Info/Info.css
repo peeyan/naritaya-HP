@@ -1,0 +1,68 @@
+/* Info.css */
+.info-page {
+  padding-bottom: 4rem;
+}
+.section-title {
+  text-align: center;
+  font-family: "Shippori Mincho", serif;
+  font-size: 2rem;
+  margin-bottom: 4rem;
+  font-weight: normal;
+  letter-spacing: 0.2em;
+}
+
+.info-content {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4rem;
+}
+
+.info-list {
+  width: 100%;
+  max-width: 700px;
+}
+
+.info-item {
+  display: flex;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 1.5rem 0;
+}
+
+.info-item dt {
+  width: 30%;
+  font-weight: bold;
+  color: var(--accent-color);
+  padding-left: 1rem;
+}
+
+.info-item dd {
+  width: 70%;
+  margin: 0;
+  color: #333;
+}
+
+.map-placeholder {
+  width: 100%;
+  height: 300px;
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #aaa;
+}
+
+@media (max-width: 768px) {
+  .info-item {
+    flex-direction: column;
+  }
+  
+  .info-item dt {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
+  .info-item dd {
+    width: 100%;
+    padding-left: 1rem;
+  }
+}
