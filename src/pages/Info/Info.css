@@ -55,14 +55,25 @@
   .info-item {
     flex-direction: column;
   }
-  
+
   .info-item dt {
     width: 100%;
     margin-bottom: 0.5rem;
   }
-  
+
   .info-item dd {
     width: 100%;
     padding-left: 1rem;
   }
+}
+
+.tel-link {
+  color: inherit; /* 親要素（文字色）を継承 */
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+.tel-link:hover {
+  opacity: 0.6; /* ホバー時に少し薄くする */
+  text-decoration: underline; /* ホバー時に下線を表示 */
 }
