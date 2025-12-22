@@ -112,12 +112,27 @@ export default function MenuManager() {
     setIsModalOpen(true);
   };
 
-  // ★表示データの絞り込み
+  // 表示データの絞り込み
   const filteredItems = useMemo(() => {
     if (activeTab === 'all') return items;
     if (activeTab === 'recommended') return items.filter(i => i.is_recommended);
     return items.filter(i => i.category === activeTab);
   }, [items, activeTab]);
+
+  // メルマガ配信処理
+  const handleSendNewsletter = async () => {
+    if (!window.confirm('現在の「おすすめメニュー」をメルマガで配信しますか？\n（購読者全員にメールが送信されます）')) return;
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      const data = await res.json();
+      alert(data.message);
+    } catch (error) {
+      alert('配信に失敗しました');
+    }
+  };
 
   return (
     <div className="admin-container">
@@ -128,6 +143,9 @@ export default function MenuManager() {
 
       <button onClick={() => openModal()} className="primary-btn" style={{ marginBottom: '1.5rem' }}>
         ＋ 新規メニュー追加
+      </button>
+      <button onClick={handleSendNewsletter} className="primary-btn" style={{ marginTop: 0, flex: 1, backgroundColor: '#555' }}>
+        ✉️ メルマガ配信
       </button>
 
       {/* ★タブ UI */}
@@ -158,7 +176,6 @@ export default function MenuManager() {
                 {item.is_recommended ? <span style={{color:'red', marginLeft:'0.5rem', fontWeight:'bold'}}>★おすすめ</span> : ''}
               </div>
               <div style={{ fontSize: '0.8rem', color: '#888' }}>{item.description}</div>
-              
               <div className="item-actions">
                 <button onClick={() => openModal(item)} className="secondary-btn">編集</button>
                 <button onClick={() => item.id && handleDelete(item.id)} className="danger-btn">削除</button>

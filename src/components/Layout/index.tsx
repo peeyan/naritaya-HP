@@ -6,12 +6,32 @@ import './Layout.css';
 export default function Layout() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const [email, setEmail] = useState('');
+  const [subMessage, setSubMessage] = useState('');
 
   // ページ遷移時にメニューを閉じる
   const closeMenu = () => setIsMenuOpen(false);
 
   // 現在のページがリンク先と一致するか判定するヘルパー
   const isActive = (path: string) => location.pathname === path ? 'active' : '';
+
+  // メルマガ登録処理
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+      setSubMessage(data.message);
+      setEmail('');
+    } catch (err) {
+      setSubMessage('エラーが発生しました');
+    }
+  };
 
   return (
     <div className="app-container">
@@ -64,6 +84,21 @@ export default function Layout() {
       </main>
 
       <footer className="footer">
+        {/* メルマガ登録フォーム */}
+        <div className="newsletter-section">
+          <p className="newsletter-title">最新の献立をお届けします</p>
+          <form onSubmit={handleSubscribe} className="newsletter-form">
+            <input
+              type="email"
+              placeholder="メールアドレス"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <button type="submit">登録</button>
+          </form>
+          {subMessage && <p className="newsletter-msg">{subMessage}</p>}
+        </div>
         <p>
           &copy; {new Date().getFullYear()} Naritaya. All rights reserved
           {/* ここに隠しリンクを配置（ただのドットに見せかける） */}
