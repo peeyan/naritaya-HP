@@ -88,6 +88,13 @@
 .footer {
   text-align: center;
 }
+.secret-link {
+  color: inherit; /* 周りの文字と同じ色にする */
+  text-decoration: none; /* 下線を消す */
+  margin-left: 2px; /* 少しだけ隙間を空ける */
+  cursor: default; /* マウスカーソルも指マークにしない（PC閲覧時のカモフラージュ） */
+  opacity: 0.5; /* うっすら薄くしておく（管理者が見つけやすいように微調整） */
+}
 
 /* --- スマホ対応 (レスポンシブ) --- */
 @media (max-width: 768px) {
