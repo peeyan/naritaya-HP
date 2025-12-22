@@ -21,6 +21,13 @@ export default async function handler(req, res) {
     return res.status(401).json({ message: 'Unauthorized' });
   }
 
+  // フロントエンドから配信対象のIDリストを受け取る
+  const { menuIds } = req.body;
+
+  if (!menuIds || !Array.isArray(menuIds) || menuIds.length === 0) {
+    return res.status(400).json({ message: '配信するメニューが選択されていません' });
+  }
+
   const connection = await createConnection({
     host: process.env.TIDB_HOST,
     port: parseInt(process.env.TIDB_PORT || '4000'),
@@ -37,13 +44,15 @@ export default async function handler(req, res) {
       return res.status(200).json({ message: '購読者がいません' });
     }
 
-    // 2. 「本日のおすすめ」メニューを取得
+    // 2. 指定されたIDのメニューを取得
+    const placeholders = menuIds.map(() => '?').join(',');
     const [menuItems]: any = await connection.execute(
-      'SELECT name, price, description FROM menu_items WHERE is_recommended = 1'
+      `SELECT name, price, description FROM menu_items WHERE id IN (${placeholders})`,
+      menuIds
     );
 
     if (menuItems.length === 0) {
-      return res.status(400).json({ message: 'おすすめメニューが登録されていません' });
+      return res.status(400).json({ message: 'メニューが見つかりませんでした。' });
     }
 
     // 3. メール本文の作成
@@ -53,18 +62,19 @@ export default async function handler(req, res) {
 
     const subject = '【成田屋】季節の献立が新しくなりました';
     const text = `
-いつも成田屋をご利用いただき、ありがとうございます。
-本日のおすすめメニューをご紹介いたします。
+      いつも成田屋をご利用いただき、ありがとうございます。
+      本日のおすすめメニューをご紹介いたします。
 
---------------------------------------------------
-${menuListText}
---------------------------------------------------
+      --------------------------------------------------
+      ${menuListText}
+      --------------------------------------------------
 
-皆様のご来店を心よりお待ち申し上げております。
+      皆様のご来店を心よりお待ち申し上げております。
 
-成田屋 高屋店
-〒709-0811 岡山県赤磐市高屋 405-13
-`;
+      成田屋 高屋店
+      〒709-0811 岡山県赤磐市高屋 405-13
+      TEL: 086-955-8411
+    `;
 
     // 4. 送信設定 (SMTP設定がない場合はログ出力のみ)
     if (!process.env.SMTP_HOST) {

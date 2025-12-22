@@ -37,7 +37,9 @@ export default function MenuManager() {
   const [activeTab, setActiveTab] = useState('all'); // 選択中のタブ
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
-  
+  const [isNewsletterModalOpen, setIsNewsletterModalOpen] = useState(false);
+  const [selectedNewsletterIds, setSelectedNewsletterIds] = useState<number[]>([]);
+
   // フォーム入力用ステート
   const [formData, setFormData] = useState<MenuItem>({
     name: '', description: '', price: 0, category: 'course', is_recommended: false
@@ -62,7 +64,6 @@ export default function MenuManager() {
   // 削除処理
   const handleDelete = async (id: number) => {
     if (!window.confirm('本当に削除しますか？')) return;
-    
     try {
       const res = await fetch('/api/menu', {
         method: 'DELETE',
@@ -119,16 +120,39 @@ export default function MenuManager() {
     return items.filter(i => i.category === activeTab);
   }, [items, activeTab]);
 
-  // メルマガ配信処理
+  // メルマガ配信モーダルを開く
+  const openNewsletterModal = () => {
+    // デフォルトで「おすすめ」のIDを選択状態にする
+    const recommendedIds = items
+      .filter(i => i.is_recommended && i.id !== undefined)
+      .map(i => i.id as number);
+    setSelectedNewsletterIds(recommendedIds);
+    setIsNewsletterModalOpen(true);
+  };
+
+  // チェックボックスの切り替え
+  const toggleNewsletterSelection = (id: number) => {
+    setSelectedNewsletterIds(prev =>
+      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+    );
+  };
+
+  // メルマガ送信実行
   const handleSendNewsletter = async () => {
-    if (!window.confirm('現在の「おすすめメニュー」をメルマガで配信しますか？\n（購読者全員にメールが送信されます）')) return;
+    if (selectedNewsletterIds.length === 0) {
+      alert('配信するメニューを1つ以上選択してください');
+      return;
+    }
+    if (!window.confirm(`選択した${selectedNewsletterIds.length}品のメニューを配信しますか？`)) return;
     try {
       const res = await fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ menuIds: selectedNewsletterIds }),
       });
       const data = await res.json();
       alert(data.message);
+      setIsNewsletterModalOpen(false);
     } catch (error) {
       alert('配信に失敗しました');
     }
@@ -197,36 +221,36 @@ export default function MenuManager() {
             <form onSubmit={handleSave}>
               <div className="form-group">
                 <label>料理名</label>
-                <input 
-                  className="form-input" 
-                  value={formData.name} 
-                  onChange={e => setFormData({...formData, name: e.target.value})} 
-                  required 
+                <input
+                  className="form-input"
+                  value={formData.name}
+                  onChange={e => setFormData({...formData, name: e.target.value})}
+                  required
                 />
               </div>
               <div className="form-group">
                 <label>説明文</label>
-                <textarea 
-                  className="form-textarea" 
-                  value={formData.description} 
-                  onChange={e => setFormData({...formData, description: e.target.value})} 
+                <textarea
+                  className="form-textarea"
+                  value={formData.description}
+                  onChange={e => setFormData({...formData, description: e.target.value})}
                 />
               </div>
               <div className="form-group">
                 <label>価格 (円)</label>
-                <input 
-                  type="number" 
-                  className="form-input" 
-                  value={formData.price} 
-                  onChange={e => setFormData({...formData, price: Number(e.target.value)})} 
-                  required 
+                <input
+                  type="number"
+                  className="form-input"
+                  value={formData.price}
+                  onChange={e => setFormData({...formData, price: Number(e.target.value)})}
+                  required
                 />
               </div>
               <div className="form-group">
                 <label>カテゴリ</label>
-                <select 
-                  className="form-select" 
-                  value={formData.category} 
+                <select
+                  className="form-select"
+                  value={formData.category}
                   onChange={e => setFormData({...formData, category: e.target.value})}
                 >
                   {FORM_CATEGORIES.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
@@ -234,10 +258,10 @@ export default function MenuManager() {
               </div>
               <div className="form-group">
                 <label>
-                  <input 
-                    type="checkbox" 
-                    checked={formData.is_recommended} 
-                    onChange={e => setFormData({...formData, is_recommended: e.target.checked})} 
+                  <input
+                    type="checkbox"
+                    checked={formData.is_recommended}
+                    onChange={e => setFormData({...formData, is_recommended: e.target.checked})}
                   /> 本日のおすすめにする
                 </label>
               </div>
@@ -247,6 +271,50 @@ export default function MenuManager() {
                 <button type="submit" className="primary-btn" style={{flex:1, marginTop:0}}>保存</button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* メルマガ配信選択モーダル */}
+      {isNewsletterModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content" style={{ maxHeight: '80vh', display: 'flex', flexDirection: 'column' }}>
+            <h3 style={{ marginTop: 0 }}>配信メニュー選択</h3>
+            <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '1rem' }}>
+              メルマガに載せるメニューを選択してください。<br/>
+              (初期状態では「おすすめ」が選択されています)
+            </p>
+
+            <div style={{ flex: 1, overflowY: 'auto', border: '1px solid #eee', borderRadius: '4px' }}>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                {items.map(item => (
+                  <li key={item.id} style={{ padding: '0.8rem', borderBottom: '1px solid #f0f0f0', display: 'flex', alignItems: 'center' }}>
+                    <label style={{ display: 'flex', alignItems: 'center', width: '100%', cursor: 'pointer' }}>
+                      <input
+                        type="checkbox"
+                        checked={item.id ? selectedNewsletterIds.includes(item.id) : false}
+                        onChange={() => item.id && toggleNewsletterSelection(item.id)}
+                        style={{ transform: 'scale(1.5)', marginRight: '1rem' }}
+                      />
+                      <div>
+                        <div style={{ fontWeight: 'bold' }}>{item.name}</div>
+                        <div style={{ fontSize: '0.8rem', color: '#888' }}>
+                          {FORM_CATEGORIES.find(c => c.id === item.category)?.label}
+                          {item.is_recommended && <span style={{color:'red', marginLeft:'0.5rem'}}>★おすすめ</span>}
+                        </div>
+                      </div>
+                    </label>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+              <button onClick={() => setIsNewsletterModalOpen(false)} className="secondary-btn" style={{flex:1}}>キャンセル</button>
+              <button onClick={handleSendNewsletter} className="primary-btn" style={{flex:1, marginTop:0}}>
+                送信 ({selectedNewsletterIds.length}件)
+              </button>
+            </div>
           </div>
         </div>
       )}
