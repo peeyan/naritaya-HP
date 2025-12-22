@@ -85,6 +85,10 @@
   transition: all 0.3s ease-in-out;
 }
 
+.footer {
+  text-align: center;
+}
+
 /* --- スマホ対応 (レスポンシブ) --- */
 @media (max-width: 768px) {
   .header {
