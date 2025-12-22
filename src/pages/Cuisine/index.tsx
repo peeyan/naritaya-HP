@@ -80,11 +80,16 @@ export default function Cuisine() {
           百を超える品々より、<br />
           今宵の一皿をお選びください。
         </p>
-        
+        <p className='understand-text'>
+          季節や仕入れ状況により、<br />
+          メニュー内容が変更される場合がございます。<br />
+          予めご了承ください。
+        </p>
+
         <div className="search-container">
-          <input 
-            type="text" 
-            placeholder="お料理名や食材で探す..." 
+          <input
+            type="text"
+            placeholder="お料理名や食材で探す..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="search-input"

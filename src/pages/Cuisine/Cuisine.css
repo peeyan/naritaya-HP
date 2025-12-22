@@ -11,10 +11,18 @@
 
 .intro-text {
   font-family: "Shippori Mincho", serif;
-  margin-bottom: 3rem;
+  margin-bottom: 0.6rem;
   color: #555;
   line-height: 2;
   font-size: 1.3rem;
+  text-align: center;
+}
+.understand-text{
+  font-family: "Shippori Mincho", serif;
+  margin-bottom: 2rem;
+  color: #555;
+  line-height: 2;
+  font-size: 0.7rem;
   text-align: center;
 }
 
