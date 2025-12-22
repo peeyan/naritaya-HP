@@ -63,7 +63,7 @@ export default function Layout() {
             <li>
               <Link to="/rooms" className={isActive('/rooms')} onClick={closeMenu}>
                 <span className="en">Rooms</span>
-                <span className="jp">設え</span>
+                <span className="jp">お部屋</span>
               </Link>
             </li>
             <li>

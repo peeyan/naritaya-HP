@@ -77,7 +77,7 @@ export default function Cuisine() {
       <div className="cuisine-header">
         <h2 className="section-title">お品書き</h2>
         <p className="intro-text">
-          百を超える品々より、<br />
+          数多の品々より、<br />
           今宵の一皿をお選びください。
         </p>
         <p className='understand-text'>

@@ -4,7 +4,7 @@ import './Rooms.css';
 export default function Rooms() {
   return (
     <div className="rooms-page">
-      <h2 className="section-title">設え</h2>
+      <h2 className="section-title">お部屋</h2>
       <p className="intro-text">
         心安らぐ和の空間で、<br />
         特別なひとときを。
