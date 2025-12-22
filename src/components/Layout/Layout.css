@@ -1,8 +1,10 @@
-/* Layout.css */
+/* src/components/Layout/Layout.css */
+
 .app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  position: relative;
 }
 
 .header {
@@ -10,38 +12,158 @@
   justify-content: space-between;
   align-items: center;
   padding: 2rem 4rem;
-  background-color: transparent;
+  background-color: rgba(252, 252, 252, 0.95); /* 少し透過させて重なりを綺麗に */
+  position: sticky; /* スクロールしても追従 */
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(5px);
 }
 
-.logo {
+.logo a {
   font-size: 1.5rem;
   font-weight: bold;
   letter-spacing: 0.1em;
+  color: #333;
+  z-index: 101; /* メニューより上に */
+  position: relative;
 }
 
+/* PC用ナビゲーションスタイル */
 .nav ul {
   display: flex;
   gap: 3rem;
   list-style: none;
   margin: 0;
   padding: 0;
-  font-size: 0.95rem;
-  letter-spacing: 0.05em;
 }
 
-.main-content {
-  flex: 1;
-  padding: 4rem 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
-  width: 100%;
-  box-sizing: border-box;
+.nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+  position: relative;
+  transition: color 0.3s;
 }
 
-.footer {
-  text-align: center;
-  padding: 3rem;
-  background-color: #f5f5f5;
+.nav a .en {
   font-size: 0.8rem;
-  margin-top: auto;
+  letter-spacing: 0.1em;
+  color: var(--accent-color);
+  margin-bottom: 0.2rem;
+  font-family: sans-serif; /* 英語は読みやすく */
+}
+
+.nav a .jp {
+  font-size: 1rem;
+  font-family: "Shippori Mincho", serif;
+}
+
+.nav a:hover, .nav a.active {
+  color: var(--accent-color);
+}
+
+/* ハンバーガーアイコン (PCでは非表示) */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 102; /* 最前面 */
+  padding: 0;
+}
+
+.hamburger .bar {
+  width: 100%;
+  height: 2px;
+  background-color: #333;
+  transition: all 0.3s ease-in-out;
+}
+
+/* --- スマホ対応 (レスポンシブ) --- */
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem 1.5rem; /* パディングを縮小 */
+  }
+
+  .logo a {
+    font-size: 1.2rem; /* ロゴサイズ調整 */
+  }
+
+  /* ハンバーガーアイコン表示 */
+  .hamburger {
+    display: flex;
+  }
+
+  /* ハンバーガーが開いた時のアニメーション */
+  .hamburger.open .bar:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+  }
+  .hamburger.open .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.open .bar:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+  }
+
+  /* スマホ用ナビゲーション (ドロワーメニュー) */
+  .nav {
+    position: fixed;
+    top: 0;
+    right: -100%; /* 画面外に隠す */
+    width: 70%;
+    height: 100vh;
+    background-color: #fff;
+    flex-direction: column;
+    justify-content: center;
+    transition: right 0.4s cubic-bezier(0.19, 1, 0.22, 1); /* 高級感のある動き */
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    z-index: 100;
+    padding-top: 4rem; /* ヘッダー分空ける */
+  }
+
+  .nav.open {
+    right: 0; /* 画面内にスライドイン */
+  }
+
+  .nav ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .nav a .en {
+    font-size: 0.9rem;
+  }
+  
+  .nav a .jp {
+    font-size: 1.2rem; /* スマホでは文字を少し大きく */
+  }
+
+  /* オーバーレイ */
+  .menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 99;
+    animation: fadeIn 0.3s;
+  }
+  
+  /* メインコンテンツのスマホ調整 */
+  .main-content {
+    padding: 2rem 1rem; /* 横幅いっぱいに使えるようにパディング縮小 */
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

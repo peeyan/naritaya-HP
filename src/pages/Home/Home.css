@@ -72,9 +72,33 @@
 }
 
 @media (max-width: 768px) {
+  .hero-section {
+    height: 60vh; /* 高さを少し抑える */
+    margin-bottom: 2rem;
+  }
+
   .vertical-title {
-    font-size: 1.8rem;
+    font-size: 1.6rem; /* フォントサイズ調整 */
     line-height: 2;
-    height: 80%;
+    height: auto; /* 高さはなりゆきに */
+    max-height: 80%;
+    padding: 1rem;
+    writing-mode: vertical-rl;
+  }
+
+  .small-text {
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+
+  .greeting-section {
+    padding: 0 1rem;
+  }
+
+  .greeting-text {
+    font-size: 1rem; /* 読みやすいサイズに */
+    line-height: 2;
+    text-align: left; /* スマホでは左揃えの方が読みやすい場合も（お好みで） */
+    margin-bottom: 2rem;
   }
 }
