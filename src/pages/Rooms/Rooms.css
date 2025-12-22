@@ -1,4 +1,9 @@
 /* src/pages/Rooms/Rooms.css */
+.intro-text {
+  font-size: 1.3rem;
+  text-align: center;
+}
+
 .rooms-page {
   padding-bottom: 6rem;
 }
