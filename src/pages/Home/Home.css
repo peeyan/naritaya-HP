@@ -96,9 +96,9 @@
   }
 
   .greeting-text {
-    font-size: 1rem; /* 読みやすいサイズに */
+    font-size: 0.9rem; /* 読みやすいサイズに */
     line-height: 2;
-    text-align: left; /* スマホでは左揃えの方が読みやすい場合も（お好みで） */
+    text-align: center; /* スマホでは左揃えの方が読みやすい場合も（お好みで） */
     margin-bottom: 2rem;
   }
 }

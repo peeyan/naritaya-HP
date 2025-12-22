@@ -95,6 +95,20 @@
     font-size: 1.2rem; /* ロゴサイズ調整 */
   }
 
+  .footer {
+    text-align: center;
+    padding: 3rem;
+    background-color: #f5f5f5;
+    font-size: 0.8rem;
+    margin-top: auto;
+  }
+
+  .footer p {
+    text-align: center;
+    margin: 0;
+    width: 100%;
+  }
+
   /* ハンバーガーアイコン表示 */
   .hamburger {
     display: flex;

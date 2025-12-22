@@ -17,7 +17,7 @@ export default function Home() {
 
       <div className="greeting-section">
         <p className="greeting-text">
-          日頃よりご愛顧いただき、誠にありがとうございます。<br />
+          日頃よりご愛顧いただき、<br /> 誠にありがとうございます。<br />
           当店では、地元の旬の食材にこだわり、<br />
           一品一品丁寧に仕上げております。<br />
           <br />
