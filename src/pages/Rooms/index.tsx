@@ -30,7 +30,7 @@ export default function Rooms() {
             <span>個室の写真</span>
           </div>
           <div className="room-text">
-            <h3>個室「松の間」</h3>
+            <h3>個室</h3>
             <p>
               掘りごたつ式の落ち着いた個室です。<br />
               ご接待やご家族での会食など、プライベートな空間で<br />
