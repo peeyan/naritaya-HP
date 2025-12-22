@@ -67,7 +67,7 @@ export default function Layout() {
         <p>
           &copy; {new Date().getFullYear()} Naritaya. All rights reserved
           {/* ここに隠しリンクを配置（ただのドットに見せかける） */}
-          <Link to="/admin/login" className="secret-link">.</Link>
+          <Link to="/admin/login" className="secret-link">.　　</Link>
         </p>
       </footer>
     </div>
