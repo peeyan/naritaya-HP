@@ -144,7 +144,7 @@ export default function MenuManager() {
       <button onClick={() => openModal()} className="primary-btn" style={{ marginBottom: '1.5rem' }}>
         ＋ 新規メニュー追加
       </button>
-      <button onClick={handleSendNewsletter} className="primary-btn" style={{ marginTop: 0, flex: 1, backgroundColor: '#555' }}>
+      <button onClick={handleSendNewsletter} className="primary-btn menuManage" style={{ marginTop: 0, flex: 1, backgroundColor: '#555' }}>
         ✉️ メルマガ配信
       </button>
 
