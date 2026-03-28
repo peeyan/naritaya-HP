@@ -52,7 +52,7 @@ export default async function handler(req, res) {
     // --- POST: 新規追加 ---
     if (req.method === 'POST') {
       const { name, description, price, category, is_recommended, image } = req.body;
-      await connection.execute(
+      await connection.query(
         'INSERT INTO menu_items (name, description, price, category, is_recommended) VALUES (?, ?, ?, ?, ?)',
         [name, description || '', price, category, is_recommended ? 1 : 0, image || null]
       );
@@ -62,7 +62,7 @@ export default async function handler(req, res) {
     // --- PUT: 更新 ---
     if (req.method === 'PUT') {
       const { id, name, description, price, category, is_recommended, image } = req.body;
-      await connection.execute(
+      await connection.query(
         'UPDATE menu_items SET name=?, description=?, price=?, category=?, is_recommended=? WHERE id=?',
         [name, description || '', price, category, is_recommended ? 1 : 0, id, image || null]
       );
