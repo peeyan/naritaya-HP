@@ -54,6 +54,7 @@ export default async function handler(req, res) {
       const { name, description, price, category, is_recommended, image } = req.body;
       await connection.query(
         'INSERT INTO menu_items (name, description, price, category, is_recommended, image) VALUES (?, ?, ?, ?, ?, ?)',
+        // 順番: 1:name, 2:description, 3:price, 4:category, 5:is_recommended, 6:image
         [name, description || '', price, category, is_recommended ? 1 : 0, image || null]
       );
       return res.status(201).json({ message: 'Created' });
@@ -64,7 +65,8 @@ export default async function handler(req, res) {
       const { id, name, description, price, category, is_recommended, image } = req.body;
       await connection.query(
         'UPDATE menu_items SET name=?, description=?, price=?, category=?, is_recommended=?, image=? WHERE id=?',
-        [name, description || '', price, category, is_recommended ? 1 : 0, id, image || null]
+        // 順番: 1:name, 2:description, 3:price, 4:category, 5:is_recommended, 6:image, 7:id
+        [name, description || '', price, category, is_recommended ? 1 : 0, image || null, id]
       );
       return res.status(200).json({ message: 'Updated' });
     }
