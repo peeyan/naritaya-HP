@@ -55,8 +55,8 @@ export default function MenuManager() {
         const img = new Image();
         img.onload = () => {
           const canvas = document.createElement('canvas');
-          const MAX_WIDTH = 600;
-          const MAX_HEIGHT = 600;
+          const MAX_WIDTH = 500;
+          const MAX_HEIGHT = 500;
           let width = img.width;
           let height = img.height;
 
@@ -78,7 +78,7 @@ export default function MenuManager() {
 
           if (ctx) {
             ctx.drawImage(img, 0, 0, width, height);
-            const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7);
+            const compressedBase64 = canvas.toDataURL('image/jpeg', 0.5);
             setFormData(prev => ({ ...prev, image: compressedBase64 }));
           }
         };
@@ -123,7 +123,7 @@ export default function MenuManager() {
   // 保存処理
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("送信するデータ:", formData);
+    //console.log("送信するデータ:", formData);
     const method = editingItem ? 'PUT' : 'POST';
     const body = editingItem ? { ...formData, id: editingItem.id } : formData;
 
