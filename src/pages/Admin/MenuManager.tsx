@@ -11,6 +11,7 @@ type MenuItem = {
   price: number;
   category: string;
   is_recommended: boolean;
+  image? : string;
 };
 
 // 選択用カテゴリ（フォーム用）
@@ -42,8 +43,24 @@ export default function MenuManager() {
 
   // フォーム入力用ステート
   const [formData, setFormData] = useState<MenuItem>({
-    name: '', description: '', price: 0, category: 'course', is_recommended: false
+    name: '', description: '', price: 0, category: 'course', is_recommended: false, image: ''
   });
+
+  // 画像ファイルをBase64の文字データに変換する関数（コンポーネント内に追加）
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // ※ Vercelの制限を考慮し、大きすぎる画像は警告を出す（任意）
+      if (file.size > 2 * 1024 * 1024) {
+        alert('画像サイズは2MB以下をおすすめします。');
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({ ...formData, image: reader.result as string });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   // データ取得
   const fetchItems = async () => {
@@ -108,7 +125,7 @@ export default function MenuManager() {
       setFormData({ ...item, is_recommended: !!item.is_recommended });
     } else {
       setEditingItem(null);
-      setFormData({ name: '', description: '', price: 0, category: 'course', is_recommended: false });
+      setFormData({ name: '', description: '', price: 0, category: 'course', is_recommended: false, image: '' });
     }
     setIsModalOpen(true);
   };
@@ -245,6 +262,23 @@ export default function MenuManager() {
                   onChange={e => setFormData({...formData, price: Number(e.target.value)})}
                   required
                 />
+              </div>
+              <div className="form-group">
+                <label>写真</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="form-input"
+                  onChange={handleImageChange}
+                  style={{ border: 'none', padding: 0 }}
+                />
+                {/* プレビュー表示 */}
+                {formData.image && (
+                  <div style={{ marginTop: '0.5rem' }}>
+                    <img src={formData.image} alt="プレビュー" style={{ width: '100%', maxHeight: '200px', objectFit: 'cover', borderRadius: '4px' }} />
+                    <button type="button" onClick={() => setFormData({...formData, image: ''})} className="secondary-btn" style={{ fontSize: '0.8rem', padding: '0.3rem', marginTop: '0.5rem' }}>写真を削除</button>
+                  </div>
+                )}
               </div>
               <div className="form-group">
                 <label>カテゴリ</label>
