@@ -3,6 +3,14 @@ import { createConnection } from 'mysql2/promise';
 import jwt from 'jsonwebtoken';
 import { parse } from 'cookie';
 
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '10mb',
+    },
+  },
+};
+
 // DB接続ヘルパー
 const createDBConnection = async () => {
   return await createConnection({
