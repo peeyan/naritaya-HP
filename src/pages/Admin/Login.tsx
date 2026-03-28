@@ -101,14 +101,48 @@ export default function Login() {
       ) : (
         // --- パスワードリセットフォーム ---
         <form onSubmit={handleResetPassword}>
-          <input type="text" placeholder="ユーザー名" value={username} onChange={(e) => setUsername(e.target.value)} required />
-          <input type="password" placeholder="秘密の合言葉" value={recoveryKey} onChange={(e) => setRecoveryKey(e.target.value)} required />
-          <input type="password" placeholder="新しいパスワード" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
+          <div className="form-group">
+            <label>ユーザー名</label>
+            <input
+              type="text"
+              className="form-input"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>リセットキー</label>
+            <input
+              type="password"
+              className="form-input"
+              value={recoveryKey}
+              onChange={(e) => setRecoveryKey(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>新しいパスワード</label>
+            <input
+              type="password"
+              className="form-input"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              required
+            />
+          </div>
 
-          <button type="submit" style={{ backgroundColor: '#ff4d4f' }}>パスワードをリセットする</button>
+          <button type="submit" className="primary-btn">パスワードをリセットする</button>
 
           <div style={{ marginTop: '1rem', textAlign: 'center' }}>
-            <button type="button" onClick={() => setIsResetMode(false)} style={{ background: 'none', border: 'none', color: 'gray', textDecoration: 'underline', cursor: 'pointer' }}>
+            <button
+              type="button"
+              onClick={() => {
+                setIsResetMode(false);
+                setMessage('');
+              }}
+              style={{ background: 'none', border: 'none', color: 'gray', textDecoration: 'underline', cursor: 'pointer' }}
+            >
               ログイン画面に戻る
             </button>
           </div>
