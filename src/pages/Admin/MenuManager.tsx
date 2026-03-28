@@ -123,6 +123,7 @@ export default function MenuManager() {
   // 保存処理
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("送信するデータ:", formData);
     const method = editingItem ? 'PUT' : 'POST';
     const body = editingItem ? { ...formData, id: editingItem.id } : formData;
 
