@@ -9,6 +9,12 @@ export default function Login() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+  // パスワードリセット用のState
+  const [isResetMode, setIsResetMode] = useState(false);
+  const [recoveryKey, setRecoveryKey] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [message, setMessage] = useState('');
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -31,33 +37,83 @@ export default function Login() {
     }
   };
 
+  // パスワードリセット処理
+  const handleResetPassword = async (e:any) => {
+    e.preventDefault();
+    setMessage('');
+
+    try {
+      const response = await fetch('/api/auth/reset-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, recoveryKey, newPassword }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setMessage('パスワードをリセットしました。');
+        setIsResetMode(false); // ログイン画面に戻す
+        setPassword('');
+      } else {
+        setMessage(data.message);
+      }
+    } catch (error) {
+      setMessage('エラーが発生しました。');
+    }
+  };
+
   return (
     <div className="admin-container">
       <h2 className="admin-title" style={{ textAlign: 'center', marginBottom: '2rem' }}>管理者ログイン</h2>
       {error && <p className="error-msg">{error}</p>}
-      <form onSubmit={handleLogin}>
-        <div className="form-group">
-          <label>ユーザー名</label>
-          <input
-            type="text"
-            className="form-input"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>パスワード</label>
-          <input
-            type="password"
-            className="form-input"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" className="primary-btn">ログイン</button>
-      </form>
+      {message && <p className="message">{message}</p>}
+
+      {!isResetMode ? (
+        // --- 通常のログインフォーム ---
+        <form onSubmit={handleLogin}>
+          <div className="form-group">
+            <label>ユーザー名</label>
+            <input
+              type="text"
+              className="form-input"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>パスワード</label>
+            <input
+              type="password"
+              className="form-input"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit" className="primary-btn">ログイン</button>
+          <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+            <button type="button" onClick={() => setIsResetMode(true)} style={{ background: 'none', border: 'none', color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}>
+              パスワードを忘れた場合はこちら
+            </button>
+          </div>
+        </form>
+      ) : (
+        // --- パスワードリセットフォーム ---
+        <form onSubmit={handleResetPassword}>
+          <input type="text" placeholder="ユーザー名" value={username} onChange={(e) => setUsername(e.target.value)} required />
+          <input type="password" placeholder="秘密の合言葉" value={recoveryKey} onChange={(e) => setRecoveryKey(e.target.value)} required />
+          <input type="password" placeholder="新しいパスワード" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
+
+          <button type="submit" style={{ backgroundColor: '#ff4d4f' }}>パスワードをリセットする</button>
+
+          <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+            <button type="button" onClick={() => setIsResetMode(false)} style={{ background: 'none', border: 'none', color: 'gray', textDecoration: 'underline', cursor: 'pointer' }}>
+              ログイン画面に戻る
+            </button>
+          </div>
+        </form>
+      )}
     </div>
   );
 }
