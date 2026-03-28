@@ -11,7 +11,8 @@ type MenuItem = {
   description: string;
   price: number;
   category: CategoryId | string;
-  is_recommended?: boolean; // DBのカラム名に合わせて修正 (isRecommended -> is_recommended)
+  is_recommended?: boolean;
+  image?: string;
 };
 
 export default function Cuisine() {
@@ -117,6 +118,10 @@ export default function Cuisine() {
           <div className="menu-grid">
             {filteredItems.map((item) => (
               <div key={item.id} className={`menu-card ${item.is_recommended ? 'recommended' : ''}`}>
+                {/* 写真があれば表示する */}
+                {item.image && (
+                  <img src={item.image} alt={item.name} className="menu-image" />
+                )}
                 <div className="menu-header">
                   <h4 className="menu-name">
                     {item.name}
