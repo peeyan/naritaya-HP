@@ -23,6 +23,8 @@ const FORM_CATEGORIES = [
   { id: 'fried', label: '揚げ物' },
   { id: 'rice', label: 'ご飯・麺' },
   { id: 'sushi', label: '寿司' },
+  { id: 'sunomono', label: '酢の物' },
+  { id: 'yasai', label: '野菜' },
   { id: 'dessert', label: '甘味・デザート' },
   { id: 'sake', label: '日本酒・焼酎' },
   { id: 'drink', label: 'お飲み物' },
