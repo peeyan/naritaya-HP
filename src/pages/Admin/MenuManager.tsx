@@ -19,6 +19,7 @@ const FORM_CATEGORIES = [
   { id: 'course', label: '会席・コース' },
   { id: 'sashimi', label: '刺身・造り' },
   { id: 'grilled', label: '焼き物・煮物' },
+  { id: 'mishi', label: '蒸し物' },
   { id: 'fried', label: '揚げ物' },
   { id: 'rice', label: 'ご飯・麺' },
   { id: 'sake', label: '日本酒・焼酎' },
