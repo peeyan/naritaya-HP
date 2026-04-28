@@ -24,6 +24,7 @@ const FORM_CATEGORIES = [
   { id: 'rice', label: 'ご飯・麺' },
   { id: 'sushi', label: '寿司' },
   { id: 'sunomono', label: '酢の物' },
+  { id: 'mame', label: '豆類' },
   { id: 'yasai', label: '野菜' },
   { id: 'dessert', label: '甘味・デザート' },
   { id: 'sake', label: '日本酒・焼酎' },
